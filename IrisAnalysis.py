@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import sqlite3 as sql
 from sklearn.cross_validation import train_test_split
 import sklearn as sk
+from sklearn.neighbors import KNeighborsClassifier
 
 def plot_width(df):
     param_x = []
@@ -32,8 +33,12 @@ def plot_distribution_flowers(df):
     df.hist()
     plt.show()
 
-def do_logistic_regression(x_train, y_train, x_test, y_test):
-    print("Add code here")
+def do_KNeighbors(x_train, y_train, x_test, y_test):
+    kn = KNeighborsClassifier(n_neighbors=3)
+    kn.fit(x_train, y_train)
+    pred = kn.predict(x_test)
+    acc = sk.metrics.accuracy_score(pred, y_test)
+    print("Accuracy of KNN model: ", acc)
 
 
 def main():
@@ -64,7 +69,7 @@ def main():
     print(x_train)
     print(x_test)
 
-    do_logistic_regression(x_train, y_train, x_test, y_test)
+    do_KNeighbors(x_train, y_train, x_test, y_test)
 
 
 
