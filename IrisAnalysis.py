@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
 import sklearn as sk
-from subprocess import check_output
 import seaborn as sns
 import matplotlib.pyplot as plt
 import sqlite3 as sql
 from sklearn.cross_validation import train_test_split
 import sklearn as sk
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 def plot_width(df):
     param_x = []
@@ -38,7 +38,16 @@ def do_KNeighbors(x_train, y_train, x_test, y_test):
     kn.fit(x_train, y_train)
     pred = kn.predict(x_test)
     acc = sk.metrics.accuracy_score(pred, y_test)
-    print("Accuracy of KNN model: ", acc)
+    acc = "%.5f" % (acc*100.0)
+    print("Accuracy of KNN model: ", acc + "%")
+
+def do_DecisionTree(x_train, y_train, x_test, y_test):
+    tree = DecisionTreeClassifier()
+    tree.fit(x_train, y_train)
+    pred = tree.predict(x_test)
+    acc = sk.metrics.accuracy_score(pred, y_test)
+    acc = "%.5f" % (acc * 100.0)
+    print("Accuracy of Decision Tree model: ", acc + "%")
 
 
 def main():
@@ -70,6 +79,7 @@ def main():
     print(x_test)
 
     do_KNeighbors(x_train, y_train, x_test, y_test)
+    do_DecisionTree(x_train, y_train, x_test, y_test)
 
 
 
