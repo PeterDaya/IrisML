@@ -5,6 +5,7 @@ from subprocess import check_output
 import seaborn as sns
 import matplotlib.pyplot as plt
 import sqlite3 as sql
+from sklearn.cross_validation import train_test_split
 import sklearn as sk
 
 def plot_width(df):
@@ -31,6 +32,9 @@ def plot_distribution_flowers(df):
     df.hist()
     plt.show()
 
+def do_logistic_regression(x_train, y_train, x_test, y_test):
+    print("Add code here")
+
 
 def main():
     path = './database.sqlite'
@@ -43,12 +47,24 @@ def main():
     (df['PetalWidthCm'].notnull()) & (df['Species'].notnull())]
 
     print(df.head())
-    #plot_width(df)
-    #plot_distribution_flowers(df)
+    ''' 
+    plot_width(df)
+    plot_distribution_flowers(df)
 
     plt.figure(figsize=(7, 4))
     sns.heatmap(df.corr())
     plt.show()
+    '''
+
+    dftrain, dftest = train_test_split(df, test_size=0.3)
+    x_train = dftrain.loc[:, (df.columns != 'Id') & (df.columns != 'Species')]
+    x_test = dftest.loc[:, (df.columns != 'Id') & (df.columns != 'Species')]
+    y_train = dftrain['Species']
+    y_test = dftest['Species']
+    print(x_train)
+    print(x_test)
+
+    do_logistic_regression(x_train, y_train, x_test, y_test)
 
 
 
