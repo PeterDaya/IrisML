@@ -8,6 +8,7 @@ from sklearn.cross_validation import train_test_split
 import sklearn as sk
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 def plot_width(df):
     param_x = []
@@ -41,13 +42,13 @@ def do_KNeighbors(x_train, y_train, x_test, y_test):
     acc = "%.5f" % (acc*100.0)
     print("Accuracy of KNN model: ", acc + "%")
 
-def do_DecisionTree(x_train, y_train, x_test, y_test):
-    tree = DecisionTreeClassifier()
+def do_RF(x_train, y_train, x_test, y_test):
+    tree = RandomForestClassifier()
     tree.fit(x_train, y_train)
     pred = tree.predict(x_test)
     acc = sk.metrics.accuracy_score(pred, y_test)
     acc = "%.5f" % (acc * 100.0)
-    print("Accuracy of Decision Tree model: ", acc + "%")
+    print("Accuracy of RF model: ", acc + "%")
 
 
 def main():
@@ -79,7 +80,7 @@ def main():
     print(x_test)
 
     do_KNeighbors(x_train, y_train, x_test, y_test)
-    do_DecisionTree(x_train, y_train, x_test, y_test)
+    do_RF(x_train, y_train, x_test, y_test)
 
 
 
